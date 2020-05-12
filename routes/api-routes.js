@@ -10,7 +10,6 @@ module.exports = function (app) {
     })
 
     app.get("/api/notes", function (req, res) {
-        // console.log(noteData);
         res.json(noteData);
     });
 
@@ -19,28 +18,24 @@ module.exports = function (app) {
         console.log("test");
         let newNote = req.body;
         noteData.push(newNote);
-        let parsedata = JSON.stringify(noteData)
-        fs.writeFile(path.join('db.json'), parsedata, (err) => {
+        let parseData = JSON.stringify(noteData)
+        fs.writeFile(path.join('db.json'), parseData, (err) => {
             if (err) throw err;
         })
-        // console.log(noteData);
         res.json(noteData);
     });
 
     app.delete("/api/notes/:id", function (req, res) {
         console.log("erase");
         let deleteData = req.params.id;
-        // console.log(deleteData) DOESNT KNOW WHAT IS deleteData
-        console.log(deleteData)
         for (i=0; i<noteData.length; i++) {
-            // console.log(noteData[i])
+    
             if (deleteData === noteData[i].title) {
                 noteData.splice(i, 1)
             };
         };
-        let parsedata = JSON.stringify(noteData)
-        // deleted __dirname from path.join
-        fs.writeFile(path.join('db.json'), parsedata, (err) => {
+        let parseData = JSON.stringify(noteData)
+        fs.writeFile(path.join('db.json'), parseData, (err) => {
            if (err) throw err;
        })
         console.log(noteData)
